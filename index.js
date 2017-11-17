@@ -13,10 +13,10 @@ var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
 require('dotenv').config();
 
-var client_id = 'a476552a3b274690ad851a592f85310e'; // Your client id
-var client_secret = '79389b8ab9244af4bec655f0cef7015d'; // Your secret
+var client_id = process.env.CLIENT_ID; // Your client id
+var client_secret = process.env.CLIENT_SECRET; // Your secret
 
-var redirect_uri = process.env.REDIRECT + '/callback'; // Your redirect uri
+var redirect_uri = process.env.REDIRECT_URI; // Your redirect uri
 
 console.log ('redirect uri', redirect_uri)
 
