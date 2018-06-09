@@ -16,7 +16,7 @@ require('dotenv').config();
 var client_id = process.env.CLIENT_ID; // Your client id
 var client_secret = process.env.CLIENT_SECRET; // Your secret
 
-var redirect_uri = process.env.REDIRECT_URI; // Your redirect uri
+var redirect_uri = 'https://oxcord-auth.herokuapp.com/callback' ///process.env.REDIRECT_URI; // Your redirect uri
 
 console.log('redirect uri', redirect_uri)
 
@@ -121,16 +121,16 @@ app.get('/callback', function (req, res) {
         */
 
         // we can also pass the token to the browser to make requests from there
-        // res.redirect( process.env.OXCORD_APP + '/host?' + 
-        //   querystring.stringify({
-        //     access_token: access_token,
-        //     refresh_token: refresh_token
-        //   }));
-        res.redirect('http://localhost:3000/?' +
+        res.redirect(process.env.OXCORD_APP + 's?' +
           querystring.stringify({
             access_token: access_token,
             refresh_token: refresh_token
           }));
+        // res.redirect('http://localhost:3000/?' +
+        //   querystring.stringify({
+        //     access_token: access_token,
+        //     refresh_token: refresh_token
+        //   }));
       } else {
         res.redirect('/#' +
           querystring.stringify({
