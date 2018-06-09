@@ -66,6 +66,7 @@ app.get('/callback', function(req, res) {
   // your application requests refresh and access tokens
   // after checking the state parameter
 
+  console.log('inside /callback!');
   var code = req.query.code || null;
   var state = req.query.state || null;
   var storedState = req.cookies ? req.cookies[stateKey] : null;
@@ -111,7 +112,12 @@ app.get('/callback', function(req, res) {
         */
 
         // we can also pass the token to the browser to make requests from there
-        res.redirect( process.env.OXCORD_APP + '/host?' + 
+        // res.redirect( process.env.OXCORD_APP + '/host?' + 
+        //   querystring.stringify({
+        //     access_token: access_token,
+        //     refresh_token: refresh_token
+        //   }));
+        res.redirect( 'http://localhost:3000/?' + 
           querystring.stringify({
             access_token: access_token,
             refresh_token: refresh_token
