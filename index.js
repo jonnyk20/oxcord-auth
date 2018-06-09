@@ -121,7 +121,7 @@ app.get('/callback', function (req, res) {
         */
 
         // we can also pass the token to the browser to make requests from there
-        res.redirect(process.env.OXCORD_APP + 's?' +
+        res.redirect(redirect_uri + '?' +
           querystring.stringify({
             access_token: access_token,
             refresh_token: refresh_token
