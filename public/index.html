@@ -72,7 +72,6 @@
        * @return Object
        */
       function getHashParams() {
-        console.log('hey')
         var hashParams = {};
         var e, r = /([^&;=]+)=?([^&;]*)/g,
           q = window.location.hash.substring(1);
@@ -89,6 +88,7 @@
         while (e = r.exec(q)) {
           hashParams[e[1]] = decodeURIComponent(e[2]);
         }
+        window.opener.postMessage(hashParams, "http://localhost:8888");
         return hashParams;
       }
       console.log('hashParams', getHashParams())
