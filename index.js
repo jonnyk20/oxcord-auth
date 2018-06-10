@@ -13,10 +13,12 @@ var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
 require('dotenv').config();
 
+
+
 var client_id = process.env.CLIENT_ID; // Your client id
 var client_secret = process.env.CLIENT_SECRET; // Your secret
 
-var redirect_uri = 'https://oxcord-auth.herokuapp.com/callback' ///process.env.REDIRECT_URI; // Your redirect uri
+var redirect_uri = process.env.REDIRECT_URI; // Your redirect uri
 
 console.log('redirect uri', redirect_uri)
 
@@ -79,7 +81,8 @@ app.get('/callback', function (req, res) {
   var code = req.query.code || null;
   var state = req.query.state || null;
   var storedState = req.cookies ? req.cookies[stateKey] : null;
-
+  console.log('state', state)
+  console.log('storedState', storedState);
   if (state === null || state !== storedState) {
     res.redirect('/#' +
       querystring.stringify({
@@ -121,16 +124,11 @@ app.get('/callback', function (req, res) {
         */
 
         // we can also pass the token to the browser to make requests from there
-        res.redirect(redirect_uri + '?' +
+        res.redirect('/?' +
           querystring.stringify({
             access_token: access_token,
             refresh_token: refresh_token
           }));
-        // res.redirect('http://localhost:3000/?' +
-        //   querystring.stringify({
-        //     access_token: access_token,
-        //     refresh_token: refresh_token
-        //   }));
       } else {
         res.redirect('/#' +
           querystring.stringify({
