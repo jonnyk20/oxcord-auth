@@ -86,7 +86,7 @@
         }
         var opener = window.opener;
         if (opener) {
-          window.opener.postMessage(searchParams, "http://localhost:8888");
+          window.opener.postMessage(searchParams, "https://oxcord-auth.herokuapp.com");
         }
         if (searchParams.access_token) {
           console.log('logged in!!')
