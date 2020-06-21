@@ -76,6 +76,10 @@
           }
           return hashParams;
         }
+
+        const isLocal = window.location.origin = 'http://localhost:3000';
+        const appURL = isLocal ? 'http://localhost:8888' : 'https://oxcord.herokuapp.com/';
+
         function getSearchParams() {
           var searchParams = {};
           var e, r = /([^&;=]+)=?([^&;]*)/g,
@@ -99,6 +103,12 @@
         console.log('hashParams', getHashParams())
         console.log('window.location', window.location)
         console.log('getSearchParams()', getSearchParams())
+
+        const searchParams = getSearchParams();
+
+        if (searchParams.access_token) {
+          window.location = `${appURL}/host?access_token=${searchParams.access_token}&refresh_token=${searchParams.refresh_token}`
+        }
 
         var userProfileSource = document.getElementById('user-profile-template').innerHTML,
           userProfileTemplate = Handlebars.compile(userProfileSource),
@@ -124,18 +134,19 @@
               refresh_token: refresh_token
             });
             console.log('profile info request made from client');
-            $.ajax({
-              url: 'https://api.spotify.com/v1/me',
-              headers: {
-                'Authorization': 'Bearer ' + access_token
-              },
-              success: function (response) {
-                userProfilePlaceholder.innerHTML = userProfileTemplate(response);
+           
+            // $.ajax({
+            //   url: 'https://api.spotify.com/v1/me',
+            //   headers: {
+            //     'Authorization': 'Bearer ' + access_token
+            //   },
+            //   success: function (response) {
+            //     userProfilePlaceholder.innerHTML = userProfileTemplate(response);
 
-                $('#login').hide();
-                $('#loggedin').show();
-              }
-            });
+            //     $('#login').hide();
+            //     $('#loggedin').show();
+            //   }
+            // });
           } else {
             // render initial screen
             // $('#login').show();
